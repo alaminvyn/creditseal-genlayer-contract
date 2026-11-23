@@ -30,7 +30,7 @@ The script depends on the [matching upstream test host](https://github.com/genla
 
 `python scripts/bradbury_preflight.py --quote-default` performs read-only checks. Bradbury returned chain ID `4221`, the documented genesis hash, deployed AddressManager bytecode, and Finalized for a public reference transaction. The SDK's bundled Bradbury addresses differ from the current deployment. The fee probe loads the official manifest, verifies its registry and chain ID, and uses the current FeeManager.
 
-The network-default protocol deposit quote was `100000000000010352` wei per transaction, approximately 0.10 test GEN. For six transactions the illustrative sum of deposits is about 0.60 test GEN, excluding outer L2 gas. Unused deposits can be refunded. The quote uses network-default settings. CreditSeal-specific fee measurements and spending approval are pending. Requote on the live deployment before approval and verify the public wallet balance separately.
+The network-default protocol deposit quote was `100000000000010352` wei per transaction, approximately 0.10 test GEN. For six transactions the illustrative sum of deposits is about 0.60 test GEN, excluding outer L2 gas. Unused deposits can be refunded. The quote uses network-default settings. Actual assessment fees appear below.
 
 [Phase 2 network documentation](https://docs.genlayer.com/developers/networks) · [Fee policy](https://docs.genlayer.com/developers/decentralized-applications/fees-and-transaction-kit)
 
@@ -42,18 +42,26 @@ The [audited public commit](https://github.com/alaminvyn/creditseal-genlayer-con
 - **Asset ID** `1690d62b063f721417081054650060369963dba48c55192b2d893034df4368d4`. [Finalized registration](https://scan.bradbury.genlayer.com/tx/0x5bd5b292849b8748f799cfd2fdaba9dd51c18eb5fcd91831f4dd1c57503e06b0)
 - **Policy Version 1** stores display name Python Software Foundation and credit URL `https://www.python.org/psf/`. [Finalized policy write](https://scan.bradbury.genlayer.com/tx/0x61d3d965b815e24b8417891a8ce58c52aff66c47416f34883cd40539e8de8819)
 
-| Assessment | Finalized result | Evidence |
+| Stored outcome and reason | Assessment ID | Finalized receipts |
 | --- | --- | --- |
-| PASS | FinishedWithReturn. Stored `PASS:NAME_AND_LINK_MATCH`. | [GenLayer transaction](https://scan.bradbury.genlayer.com/tx/0x1e6dd02bbb9f2a4441aedd673d596d0d766554f1ba588c878132ae188b515c99) · [Outer transaction](https://scan.testnet-chain.genlayer.com/tx/0x7ace225a40bd18d17a77bb3e7f2e43fe8c56f528a6e4b6cfeb75b99ed28f48a3) |
-| FAIL | FinishedWithReturn. Stored `FAIL:LINK_MISMATCH`. | [GenLayer transaction](https://scan.bradbury.genlayer.com/tx/0x9d7b634a17f7195fea32abd8fa25659c90ba8209413ee3befc111d4d8362cd38) · [Outer transaction](https://scan.testnet-chain.genlayer.com/tx/0x55685c4540cc9f9f71f4e7d14dcc5dcfc1ceb5ac41cc742a6d870f2162a93fd5) |
-| UNVERIFIABLE | Pending | The sequence stopped before this assessment. |
+| `PASS` / `NAME_AND_LINK_MATCH` | `ad5ae6c253cec4fc26d7e77221f9b0f0020845b0aa77fddb74fece5d1126fe48` | [GenLayer](https://scan.bradbury.genlayer.com/tx/0x1e6dd02bbb9f2a4441aedd673d596d0d766554f1ba588c878132ae188b515c99) · [Outer](https://scan.testnet-chain.genlayer.com/tx/0x7ace225a40bd18d17a77bb3e7f2e43fe8c56f528a6e4b6cfeb75b99ed28f48a3) |
+| `FAIL` / `LINK_MISMATCH` | `544d3ab37c95b5114dd1426349693f55fa6b15bfc1bc125c71d4122af4521dbf` | [GenLayer](https://scan.bradbury.genlayer.com/tx/0x9d7b634a17f7195fea32abd8fa25659c90ba8209413ee3befc111d4d8362cd38) · [Outer](https://scan.testnet-chain.genlayer.com/tx/0x55685c4540cc9f9f71f4e7d14dcc5dcfc1ceb5ac41cc742a6d870f2162a93fd5) |
+| `UNVERIFIABLE` / `ASSET_ABSENT` | `3f2a8c9fe6f7310df199e6dacc3aba74b2d8e16670eeb3d8ac24319e4c7deab9` | [GenLayer](https://scan.bradbury.genlayer.com/tx/0xd19f096d2772e393e1f5e89b89795c4a7ee4e55d011bfb4ea1847ffe8878fb78) · [Outer](https://scan.testnet-chain.genlayer.com/tx/0x746c7103c07917002e659cdf4b53d70c56c51a6ee516d3a8c8ea970d17838add) |
 
-The PASS receipt shows four matching successful votes and one timeout vote. The underlying timeout cause is unverified. The sequence was halted before opening another wallet confirmation.
+Each transaction finalized with `FinishedWithReturn`. Each receipt recorded four agreeing votes and one timeout. The underlying timeout causes are unverified. Finalized `get_latest_assessment` and `get_assessment` reads verified the fixture URL, asset, policy version, requester, outcome, and reason. Finalized `get_assessment_count` returned **3**.
 
-Finalized `get_latest_assessment` returned `ad5ae6c253cec4fc26d7e77221f9b0f0020845b0aa77fddb74fece5d1126fe48`. Finalized `get_assessment` confirmed the pinned PASS URL, asset ID, policy version 1, approved requester, and exact outcome and reason. `get_assessment_count` returned **2** after FAIL.
+| Assessment | Outer gas used / limit | Outer fee (test GEN) | Protocol execution and storage fees (test GEN) |
+| --- | ---: | ---: | ---: |
+| PASS | 2,295,383 / 2,800,000 | 0.00002295383 | 0.00006200925 |
+| FAIL | 2,554,046 / 2,800,000 | 0.00002554046 | 0.00006198575 |
+| UNVERIFIABLE | 2,333,526 / 2,800,000 | 0.00002333526 | 0.00006201425 |
 
-PASS used **2,295,383** of **2,800,000** outer gas. The outer fee was **0.00002295383 test GEN**. The protocol receipt recorded **0.00006200925 test GEN** in execution and storage fees against the **0.10 test GEN** deposit.
+Each assessment reserved a 0.10 test GEN protocol deposit. The table reports outer fees and receipt consumption.
 
-**Submission status — NOT READY.** UNVERIFIABLE and the final count of 3 are pending.
+## Reviewer-readiness audit
 
-Finalized FAIL reads returned assessment ID `544d3ab37c95b5114dd1426349693f55fa6b15bfc1bc125c71d4122af4521dbf` and verified the exact fixture, asset, policy, requester, outcome, and reason. Four votes reported successful execution and one reported a timeout. The sequence halted before opening UNVERIFIABLE. FAIL used 2,554,046 of 2,800,000 outer gas. The outer fee was 0.00002554046 test GEN. The protocol receipt recorded 0.00006198575 test GEN in execution and storage fees against the 0.10 test GEN deposit.
+- Finalized deployed source matches the audited commit. The local contract, fixtures, and tests are unchanged from that commit.
+- All 39 tests passed on the final verification run. Tests cover input bounds, policy authorization, replay and duplicate handling, and validator agreement and disagreement.
+- Fixture URLs served the expected bytes directly. The deployed allowlist fixes the repository and commit. GenVM can follow cross-host HTTPS redirects, so direct fixture retrieval remains a reviewer check.
+- All three outcomes have finalized receipts and state read-backs. Independent validator observations are represented by consensus votes and result hashes. The contract stores the agreed facts.
+- The reviewer package is ready locally. Public documentation publication and Builder submission await owner approval. Portal field limits and tag options remain to be checked in the submission form.

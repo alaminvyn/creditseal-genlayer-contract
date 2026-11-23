@@ -11,4 +11,4 @@
 | `fail.html` | FAIL | LINK_MISMATCH |
 | `unverifiable.html` | UNVERIFIABLE | ASSET_ABSENT |
 
-The finalized PASS and FAIL read-backs are available. UNVERIFIABLE remains pending. The finalized assessment count is 2.
+All three finalized read-backs and transaction links are in [Evidence](EVIDENCE.md). The finalized assessment count is 3. No wallet signature is needed to inspect the receipts or call the public read methods.
