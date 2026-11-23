@@ -1,6 +1,6 @@
 # CreditSeal
 
-**Draft status — NOT READY.** Deployment, registration, Policy Version 1, and PASS are finalized. The sequence paused after one PASS validator reported a timeout. Finalized FAIL and UNVERIFIABLE evidence remains pending.
+**Draft status — NOT READY.** Deployment, registration, Policy Version 1, PASS, and FAIL are finalized. The sequence paused after one FAIL validator reported a timeout. Finalized UNVERIFIABLE evidence remains pending.
 
 **Category** Standalone Intelligent Contract
 

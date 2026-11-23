@@ -11,4 +11,4 @@
 | `fail.html` | FAIL | LINK_MISMATCH |
 | `unverifiable.html` | UNVERIFIABLE | ASSET_ABSENT |
 
-The finalized PASS read-back is available now. FAIL and UNVERIFIABLE remain pending. The finalized assessment count is 1.
+The finalized PASS and FAIL read-backs are available. UNVERIFIABLE remains pending. The finalized assessment count is 2.
