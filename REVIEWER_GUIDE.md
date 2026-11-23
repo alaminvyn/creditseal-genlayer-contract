@@ -7,8 +7,8 @@
 
 | Fixture | Expected outcome | Expected reason |
 | --- | --- | --- |
-| `pass.html` | PASS | NAME_AND_LINK_MATCH |
-| `fail.html` | FAIL | LINK_MISMATCH |
-| `unverifiable.html` | UNVERIFIABLE | ASSET_ABSENT |
+| [pass.html](https://raw.githubusercontent.com/alaminvyn/creditseal-genlayer-contract/72a611b7422f7db41d0e13a5d890a06086eb708c/fixtures/pass.html) | PASS | NAME_AND_LINK_MATCH |
+| [fail.html](https://raw.githubusercontent.com/alaminvyn/creditseal-genlayer-contract/72a611b7422f7db41d0e13a5d890a06086eb708c/fixtures/fail.html) | FAIL | LINK_MISMATCH |
+| [unverifiable.html](https://raw.githubusercontent.com/alaminvyn/creditseal-genlayer-contract/72a611b7422f7db41d0e13a5d890a06086eb708c/fixtures/unverifiable.html) | UNVERIFIABLE | ASSET_ABSENT |
 
 All three finalized read-backs and transaction links are in [Evidence](EVIDENCE.md). The finalized assessment count is 3. No wallet signature is needed to inspect the receipts or call the public read methods.

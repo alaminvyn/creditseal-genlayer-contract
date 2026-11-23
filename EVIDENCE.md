@@ -64,4 +64,4 @@ Each assessment reserved a 0.10 test GEN protocol deposit. The table reports out
 - All 39 tests passed on the final verification run. Tests cover input bounds, policy authorization, replay and duplicate handling, and validator agreement and disagreement.
 - Fixture URLs served the expected bytes directly. The deployed allowlist fixes the repository and commit. GenVM can follow cross-host HTTPS redirects, so direct fixture retrieval remains a reviewer check.
 - All three outcomes have finalized receipts and state read-backs. Independent validator observations are represented by consensus votes and result hashes. The contract stores the agreed facts.
-- The reviewer package is ready locally. Public documentation publication and Builder submission await owner approval. Portal field limits and tag options remain to be checked in the submission form.
+- The reviewer package is ready. Portal field limits and tag options remain to be checked in the submission form. The owner submits the Builder entry.
